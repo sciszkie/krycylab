@@ -1,0 +1,20 @@
+{
+    "report_id": "bbdcee12-dfcf-4057-b5ad-a9d937c8ccd3",
+    "suspicious_flows": [
+        {
+            "id": 16,
+            "src_ip": "10.0.2.115",
+            "dst_ip": "195.113.214.249",
+            "src_port": 49160,
+            "dst_port": 443,
+            "bidirectional_bytes": 20069,
+            "bidirectional_packets": 29
+        }
+    ],
+    "alerts": [
+        {
+            "flow_id": 16,
+            "alert": "Suspicious large flow to port 443 from 10.0.2.115"
+        }
+    ]
+}
