@@ -4,10 +4,12 @@ from report import Report
 from typing import List
 from alert import Alert
 from ml import ML
+from map import Map
 
 class PcapAnalyzer:
     def __init__(self, normal_pcap_file, mal_pcap_file)-> None:
        self.report = Report()
+       self.map=Map()
        self.normal_stream=NFStreamer(source=normal_pcap_file, statistical_analysis = True)
        self.mal_stream=NFStreamer(source=mal_pcap_file, statistical_analysis = True)
        self.ml=self.build_ml_model()
@@ -61,6 +63,7 @@ if __name__ == "__main__":
         pcap_analyzer.detect_long_connection(flow)
         pcap_analyzer.detect_dos_attack(flow)
     pcap_analyzer.build_ml_model()
+    pcap_analyzer.map.printing_map(pcap_analyzer.mal_stream)
     report_json = pcap_analyzer.report.to_json()
     with open("report.json", "w") as f:
         f.write(report_json)
