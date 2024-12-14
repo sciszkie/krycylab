@@ -46,3 +46,7 @@ class ML:
         plot_tree(self.tree_model, filled=True, feature_names=X_train.columns, class_names=['Normal', 'Malicious'], fontsize=10)
         plt.title("Wizualizacja drzewa decyzyjnego")
         plt.savefig('decision_tree.png')
+        plt.clf()
+        sns.heatmap(self.conf_matrix,annot=True,fmt="d")
+        plt.title("Macierz błędów")
+        plt.savefig('confusion_matrix.png')

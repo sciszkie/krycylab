@@ -25,7 +25,6 @@ class Report:
         report = {
             "report_id": self.report_id,
             "flows": self.data,
-            "alerts": [alert.to_dict() for alert in self.generated_alerts]
         }
         return json.dumps(report, indent=4)
     
