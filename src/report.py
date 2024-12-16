@@ -1,7 +1,7 @@
 import json
 from typing import List
 from uuid import uuid4
-from alert import Alert
+from .alert import Alert
 from nfstream import NFStreamer
 import pandas as pd
 
@@ -29,9 +29,11 @@ class Report:
         return json.dumps(report, indent=4)
     
     def save_suspicious_flows(self):
+    
         suspicious_report = {
             "report_id": self.report_id,
             "suspicious_flows": self.suspicious_flows,
             "alerts": [alert.to_dict() for alert in self.generated_alerts]
         }
+
         return json.dumps(suspicious_report, indent=4)

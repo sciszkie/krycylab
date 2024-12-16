@@ -1,0 +1,59 @@
+{
+    "report_id": "3fdfd260-3f83-4dec-977e-90fa97f070c8",
+    "suspicious_flows": [
+        {
+            "id": 0,
+            "src_ip": "192.168.0.3",
+            "dst_ip": "192.168.0.87",
+            "src_port": 12345,
+            "dst_port": 80,
+            "bidirectional_bytes": 54,
+            "bidirectional_packets": 1
+        },
+        {
+            "id": 1,
+            "src_ip": "192.168.0.3",
+            "dst_ip": "192.168.0.87",
+            "src_port": 12345,
+            "dst_port": 80,
+            "bidirectional_bytes": 54,
+            "bidirectional_packets": 1
+        },
+        {
+            "id": 4,
+            "src_ip": "192.168.0.3",
+            "dst_ip": "192.168.0.87",
+            "src_port": 12345,
+            "dst_port": 80,
+            "bidirectional_bytes": 54,
+            "bidirectional_packets": 1
+        },
+        {
+            "id": 5,
+            "src_ip": "192.168.0.3",
+            "dst_ip": "192.168.0.87",
+            "src_port": 12345,
+            "dst_port": 80,
+            "bidirectional_bytes": 54,
+            "bidirectional_packets": 1
+        }
+    ],
+    "alerts": [
+        {
+            "flow_id": 0,
+            "alert": "Potential attack from suspicious ip: 192.168.0.3"
+        },
+        {
+            "flow_id": 1,
+            "alert": "Potential attack from suspicious ip: 192.168.0.3"
+        },
+        {
+            "flow_id": 4,
+            "alert": "Potential attack from suspicious ip: 192.168.0.3"
+        },
+        {
+            "flow_id": 5,
+            "alert": "Potential attack from suspicious ip: 192.168.0.3"
+        }
+    ]
+}

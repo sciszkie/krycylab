@@ -1,0 +1,194 @@
+{
+    "report_id": "3744aed3-f2f1-4626-8953-3a1fbf80a655",
+    "flows": [
+        {
+            "id": 0,
+            "src_ip": "fe80::da58:d7ff:fe00:f72",
+            "dst_ip": "fe80::5440:d617:fa87:1f07",
+            "src_port": 547,
+            "dst_port": 546,
+            "bidirectional_bytes": 346,
+            "bidirectional_packets": 2
+        },
+        {
+            "id": 1,
+            "src_ip": "fe80::da58:d7ff:fe00:f72",
+            "dst_ip": "fe80::5440:d617:fa87:1f07",
+            "src_port": 0,
+            "dst_port": 0,
+            "bidirectional_bytes": 198,
+            "bidirectional_packets": 1
+        },
+        {
+            "id": 2,
+            "src_ip": "fe80::da58:d7ff:fe00:f72",
+            "dst_ip": "fe80::5440:d617:fa87:1f07",
+            "src_port": 0,
+            "dst_port": 0,
+            "bidirectional_bytes": 198,
+            "bidirectional_packets": 1
+        },
+        {
+            "id": 3,
+            "src_ip": "fe80::da58:d7ff:fe00:f72",
+            "dst_ip": "fe80::5440:d617:fa87:1f07",
+            "src_port": 547,
+            "dst_port": 546,
+            "bidirectional_bytes": 356,
+            "bidirectional_packets": 2
+        },
+        {
+            "id": 4,
+            "src_ip": "10.0.2.15",
+            "dst_ip": "192.168.0.1",
+            "src_port": 55478,
+            "dst_port": 53,
+            "bidirectional_bytes": 536,
+            "bidirectional_packets": 2
+        },
+        {
+            "id": 5,
+            "src_ip": "fe80::da58:d7ff:fe00:f72",
+            "dst_ip": "fe80::5440:d617:fa87:1f07",
+            "src_port": 0,
+            "dst_port": 0,
+            "bidirectional_bytes": 172,
+            "bidirectional_packets": 2
+        },
+        {
+            "id": 6,
+            "src_ip": "192.168.1.112",
+            "dst_ip": "8.8.8.8",
+            "src_port": 52234,
+            "dst_port": 53,
+            "bidirectional_bytes": 494,
+            "bidirectional_packets": 3
+        },
+        {
+            "id": 7,
+            "src_ip": "192.168.1.112",
+            "dst_ip": "8.8.8.8",
+            "src_port": 54926,
+            "dst_port": 53,
+            "bidirectional_bytes": 494,
+            "bidirectional_packets": 3
+        },
+        {
+            "id": 8,
+            "src_ip": "192.168.1.112",
+            "dst_ip": "2.16.4.112",
+            "src_port": 49160,
+            "dst_port": 80,
+            "bidirectional_bytes": 240,
+            "bidirectional_packets": 4
+        },
+        {
+            "id": 9,
+            "src_ip": "192.168.1.112",
+            "dst_ip": "2.16.4.152",
+            "src_port": 49159,
+            "dst_port": 80,
+            "bidirectional_bytes": 356,
+            "bidirectional_packets": 6
+        },
+        {
+            "id": 10,
+            "src_ip": "192.168.1.112",
+            "dst_ip": "8.8.8.8",
+            "src_port": 62576,
+            "dst_port": 53,
+            "bidirectional_bytes": 440,
+            "bidirectional_packets": 3
+        },
+        {
+            "id": 11,
+            "src_ip": "192.168.1.112",
+            "dst_ip": "8.8.8.8",
+            "src_port": 62804,
+            "dst_port": 53,
+            "bidirectional_bytes": 440,
+            "bidirectional_packets": 3
+        },
+        {
+            "id": 12,
+            "src_ip": "fe80::da58:d7ff:fe00:f72",
+            "dst_ip": "fe80::5440:d617:fa87:1f07",
+            "src_port": 0,
+            "dst_port": 0,
+            "bidirectional_bytes": 198,
+            "bidirectional_packets": 1
+        },
+        {
+            "id": 13,
+            "src_ip": "192.168.1.112",
+            "dst_ip": "2.16.4.112",
+            "src_port": 49160,
+            "dst_port": 80,
+            "bidirectional_bytes": 116,
+            "bidirectional_packets": 2
+        },
+        {
+            "id": 14,
+            "src_ip": "10.0.2.15",
+            "dst_ip": "152.199.19.160",
+            "src_port": 52866,
+            "dst_port": 443,
+            "bidirectional_bytes": 114,
+            "bidirectional_packets": 2
+        },
+        {
+            "id": 15,
+            "src_ip": "fe80::5440:d617:fa87:1f07",
+            "dst_ip": "fe80::da58:d7ff:fe00:f72",
+            "src_port": 0,
+            "dst_port": 0,
+            "bidirectional_bytes": 164,
+            "bidirectional_packets": 2
+        },
+        {
+            "id": 16,
+            "src_ip": "fe80::da58:d7ff:fe00:f72",
+            "dst_ip": "fe80::5440:d617:fa87:1f07",
+            "src_port": 547,
+            "dst_port": 546,
+            "bidirectional_bytes": 398,
+            "bidirectional_packets": 2
+        },
+        {
+            "id": 17,
+            "src_ip": "fd2d:ab8c:225::1",
+            "dst_ip": "fd2d:ab8c:225:0:79ec:26b9:bb98:fae8",
+            "src_port": 0,
+            "dst_port": 0,
+            "bidirectional_bytes": 86,
+            "bidirectional_packets": 1
+        },
+        {
+            "id": 18,
+            "src_ip": "fd2d:ab8c:225:0:79ec:26b9:bb98:fae8",
+            "dst_ip": "fd2d:ab8c:225::1",
+            "src_port": 60491,
+            "dst_port": 53,
+            "bidirectional_bytes": 208,
+            "bidirectional_packets": 2
+        },
+        {
+            "id": 19,
+            "src_ip": "fd2d:ab8c:225:0:79ec:26b9:bb98:fae8",
+            "dst_ip": "fd2d:ab8c:225::1",
+            "src_port": 60970,
+            "dst_port": 53,
+            "bidirectional_bytes": 220,
+            "bidirectional_packets": 2
+        },
+        {
+            "id": 20,
+            "src_ip": "fe80::da58:d7ff:fe00:f72",
+            "dst_ip": "fd2d:ab8c:225:0:79ec:26b9:bb98:fae8",
+            "src_port": 0,
+            "dst_port": 0,
+            "bidirectional_bytes": 172,
+            "bidirectional_packets": 2
+        }
+    ]
+}
