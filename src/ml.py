@@ -87,7 +87,6 @@ class ML:
         flow_df = flow_df[self.feature_columns]
 
         prediction = model.predict(flow_df)
-        print (prediction)
         if prediction == 1:
             return True
         else:
@@ -103,7 +102,7 @@ class ML:
         model = load('decision_tree_model.joblib')
         predictions = model.predict(X_new)
         accuracy = accuracy_score(y_new, predictions)
-        print(f"Accuracy on new data: {accuracy * 100:.2f}%")
+        print(f"Procent poprawnie sklasyfikowanych danych przez model: {accuracy * 100:.2f}%")
         conf_matrix= confusion_matrix(y_new, predictions)
         sns.heatmap(conf_matrix, annot=True, fmt="d")
         plt.title("Macierz błędów")
@@ -149,8 +148,10 @@ class ML:
         plt.figure(figsize=(20,10))
         plot_tree(self.tree_model, filled=True, feature_names=X_train.columns, class_names=['Normal', 'Malicious'], fontsize=10)
         plt.title("Wizualizacja nowego drzewa decyzyjnego")
-        plt.savefig('report/new_decision_tree.png')
+        plt.savefig('report/decision_tree.png')
+        plt.show()
         plt.clf()
         sns.heatmap(self.conf_matrix, annot=True, fmt="d")
         plt.title("Macierz błędów")
-        plt.savefig('report/new_confusion_matrix.png')
+        plt.savefig('report/confusion_matrix.png')
+        plt.show()

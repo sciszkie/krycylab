@@ -5,7 +5,7 @@ from typing import List
 from .alert import Alert
 from .ml import ML
 from .map import Map
-import matplotlib.pyplot as plt
+
 
 class PcapAnalyzer:
     def __init__(self, normal_pcap_file=None, mal_pcap_file=None, live_interface=None, retrain_norm_pcap=None, retrain_mal_pcap=None) -> None:
@@ -47,16 +47,26 @@ class PcapAnalyzer:
         self.ml.test_model_on_new_data(self.retrain_norm_stream,self.retrain_mal_stream)
 
     def get_stream_info(self):
-        print("jestem tu")
+        ip_communication_count={}
         flow_data_list=[]
         for flow in self.normal_stream:
-            print("tu tez")
             flow_data = self.get_flow_data(flow)
             flow_data_list.append(flow_data)
+            src_ip = flow.src_ip
+            dst_ip = flow.dst_ip
+            ip_key = f"{src_ip} -> {dst_ip}"
+        
+            if ip_key not in ip_communication_count:
+                ip_communication_count[ip_key] = 0
+            ip_communication_count[ip_key] += 1
         
         flow_df = pd.DataFrame(flow_data_list)
-        
-        flow_df.to_json("flows.json", orient="records", lines=True, indent=4)
+
+        self.report.ip_communication_count=ip_communication_count
+        print ("Statystyka liczby występujących połączeń między adresami IP: ")
+        for ip_pair, count in self.report.ip_communication_count.items():
+            print(f"{ip_pair}: {count}")
+            print ("")
         
         self.report.stream_info(flow_df)
 
@@ -73,13 +83,6 @@ class PcapAnalyzer:
             }
         return(flow_data)
     
-    def detect_large_flow(self, flow,counter):
-        if flow.dst_port == 443 and flow.src2dst_bytes > 300:
-            message = f"Suspicious large flow to port 443 from {flow.src_ip}"
-            flow_data=self.get_flow_data(flow)
-            self.report.create_alert(flow.id, message,flow_data)
-            counter+=1
-        return counter
 
     def detect_long_connection(self, flow,counter):
         if flow.bidirectional_duration_ms > 65000:
@@ -134,34 +137,8 @@ class PcapAnalyzer:
             l_f_counter=self.detect_blacklisted_ip(flow,l_f_counter)
             l_c_counter=self.detect_long_connection(flow,l_c_counter)
             dos_counter=self.detect_dos_attack(flow,dos_counter)
-            print (l_c_counter, l_f_counter, dos_counter)
         suspicious_json = self.report.save_suspicious_flows()
         with open("report/suspicious_report.json", "w") as f:
             f.write(suspicious_json)
-        self.plot_threat_distribution(l_f_counter, l_c_counter, dos_counter)
+        self.report.plot_threat_distribution(l_f_counter, l_c_counter, dos_counter)
         
-
-
-    def plot_threat_distribution(self, large_flow_count, long_connection_count, dos_count):
-        labels = ['Black Listed IP', 'Long Connection', 'DoS Attack']
-        sizes = [large_flow_count, long_connection_count, dos_count]
-
-        filtered_labels = [label for label, size in zip(labels, sizes) if size > 0]
-        filtered_sizes = [size for size in sizes if size > 0]
-        if not filtered_labels:
-            print("Brak zagrożeń do wyświetlenia.")
-            return
-        
-        plt.figure(figsize=(10, 5))
-        plt.pie(filtered_sizes, labels=filtered_labels, autopct='%1.1f%%', startangle=140)
-        plt.title('Distribution of Detected Threats')
-        plt.savefig("report/threat_distribution.png")
-'''
-        
-if __name__ == "__main__":
-    pcap_analyzer.build_ml_model()
-    pcap_analyzer.map.printing_map(pcap_analyzer.normal_stream)
-    suspicious_json = pcap_analyzer.report.save_suspicious_flows()
-    with open("suspicious_report.json", "w") as f:
-        f.write(suspicious_json)
-''' 
