@@ -16,6 +16,7 @@ def analysis_menu():
     print("4. Cofnij do menu głównego.")
     
 def dynamic_analysis_menu():
+    print("Wybierz z listy, jakie zadanie chciałbyś zlecić systemowi:")
     print("1. Otrzymanie raportu z analizy pakietów live na interfejsie.")
     print("2. Otrzymanie raportu podejrzanych pakietów live na interfejsie (detection rules).")
     print("3. Otrzymanie raportu podejrzanych pakietów live na interfejsie (ML).")
@@ -35,21 +36,21 @@ def pcap_analysis():
         file = f"resources/{filename}"
         pcap_analyzer = PcapAnalyzer(normal_pcap_file=file)
         pcap_analyzer.flow_report()
-        print("Raport został zapisany - jego pełną wersję znajdziesz w katalogu report w pliku report.json.")
+        print("Raport został zapisany - znajdziesz go w katalogu report w pliku report.json.")
         
     elif option2 == "2":
         filename = input("Umieść podejrzany plik pcap w katalogu resources i podaj jego nazwę: ")
         file = f"resources/{filename}"
         pcap_analyzer = PcapAnalyzer(mal_pcap_file=file)
         pcap_analyzer.find_suspicious_flows()
-        print("Raport został zapisany - jego pełną wersję znajdziesz w katalogu report w pliku suspicious_report.json.")
+        print("Raport został zapisany - znajdziesz go w katalogu report w pliku suspicious_report.json.")
         
     elif option2 == "3":
         filename = input("Umieść podejrzany plik pcap w katalogu resources i podaj jego nazwę: ")
         file = f"resources/{filename}"
         pcap_analyzer = PcapAnalyzer(mal_pcap_file=file)
         pcap_analyzer.machine_learning_classification()
-        print("Raport został zapisany - jego pełną wersję znajdziesz w katalogu report w pliku suspicious_report.json.")
+        print("Raport został zapisany - znajdziesz go w katalogu report w pliku suspicious_report.json.")
         
     elif option2 == "4":
         return 
@@ -63,23 +64,23 @@ def dynamic_analysis():
     if option2 == "1":
         interface = input("Podaj nazwę interfejsu: ")
         live_pcap_analyzer = PcapAnalyzer(live_interface=interface)
-        live_pcap_analyzer.flow_report()
         print("Analiza rozpoczęta, wciśnij CTRL+C aby zatrzymać.")
-        print("Raport został zapisany - jego pełną wersję znajdziesz w katalogu report w pliku suspicious_report.json.")
+        live_pcap_analyzer.flow_report()
+        print("Raport został zapisany - znajdziesz go w katalogu report w pliku suspicious_report.json.")
         
     elif option2 == "2":
         interface = input("Podaj nazwę interfejsu: ")
         live_pcap_analyzer = PcapAnalyzer(live_interface=interface)
-        live_pcap_analyzer.find_suspicious_flows()
         print("Analiza rozpoczęta, wciśnij CTRL+C aby zatrzymać.")
-        print("Raport został zapisany - jego pełną wersję znajdziesz w katalogu report w pliku suspicious_report.json.")
+        live_pcap_analyzer.find_suspicious_flows()
+        print("Raport został zapisany - znajdziesz go w katalogu report w pliku suspicious_report.json.")
         
     elif option2 == "3":
         interface = input("Podaj nazwę interfejsu: ")
         live_pcap_analyzer = PcapAnalyzer(live_interface=interface)
-        live_pcap_analyzer.machine_learning_classification()
         print("Analiza rozpoczęta, wciśnij CTRL+C aby zatrzymać.")
-        print("Raport został zapisany - jego pełną wersję znajdziesz w katalogu report w pliku suspicious_report.json.")
+        live_pcap_analyzer.machine_learning_classification()
+        print("Raport został zapisany - znajdziesz go w katalogu report w pliku suspicious_report.json.")
         
     elif option2 == "4":
         return 
@@ -92,8 +93,8 @@ def ml_config():
     option2 = input("Wybieram opcję: ")
     
     if option2 == "1":
-        print("Umieść plik pcap o nazwie 'normal_traffic.pcap' z pozytywnymi próbkami w katalogu resources i podaj jego nazwę: ")
-        print("Umieść plik pcap o nazwie 'malicious_traffic.pcap' z złośliwymi próbkami w katalogu resources i podaj jego nazwę: ")
+        print("Umieść plik pcap o nazwie 'normal_traffic.pcap' z pozytywnymi próbkami w katalogu resources: ")
+        print("Umieść plik pcap o nazwie 'malicious_traffic.pcap' z złośliwymi próbkami w katalogu resources: ")
         input("Naciśnij Enter, kiedy umieścisz pliki w katalogu resources...")
         try:
             pcap_analyzer = PcapAnalyzer(normal_pcap_file="resources/normal_traffic.pcap", mal_pcap_file="resources/malicious_traffic.pcap")
@@ -135,7 +136,7 @@ def ml_config():
             print(f"Błąd: {str(e)}")
         
     elif option2 == "4":
-        return 
+        return
         
     else:
         print("Błąd: Niepoprawna opcja! Spróbuj ponownie.")
@@ -147,28 +148,27 @@ if __name__ == "__main__":
         option = input("Wybieram opcję: ")
         
         if option == "1":
-            while True:
-                analysis_menu()
-                pcap_analysis()
+            analysis_menu()
+            pcap_analysis()
         
         elif option == "2":
-            while True:
-                dynamic_analysis_menu()
-                dynamic_analysis()
+            dynamic_analysis_menu()
+            dynamic_analysis()
         
         elif option == "3":
-            while True:
-                ml_config_menu()
-                ml_config()
+            ml_config_menu()
+            ml_config()
         
         elif option == "4":
-            file = "resources/normal_traffic.pcap"
+            filename = input("Umieść plik pcap z podejerzanymi adresami IP, których lokalizacje chciałbyś poznać:  ")
+            file = f"resources/{filename}"
             pcap_analyzer = PcapAnalyzer(normal_pcap_file=file)
+            print("Proces generowania mapy rozpoczęty.")
             pcap_analyzer.map.printing_map(pcap_analyzer.normal_stream)
-            print("Mapka wygenerowana.")
+            print("Mapka wygenerowana, znajduje się w pliku map.html w katalogu resources.")
         
         elif option == "5":
-            print("Do widzenia!")
+            print("System analizy ruchu został wyłączony.")
             break
         
         else:

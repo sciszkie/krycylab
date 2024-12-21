@@ -46,6 +46,7 @@ class PcapAnalyzer:
     def test_ml_on_new_data (self):
         self.ml.test_model_on_new_data(self.retrain_norm_stream,self.retrain_mal_stream)
 
+    #A1 i A2
     def get_stream_info(self):
         ip_communication_count={}
         flow_data_list=[]
@@ -63,10 +64,6 @@ class PcapAnalyzer:
         flow_df = pd.DataFrame(flow_data_list)
 
         self.report.ip_communication_count=ip_communication_count
-        print ("Statystyka liczby występujących połączeń między adresami IP: ")
-        for ip_pair, count in self.report.ip_communication_count.items():
-            print(f"{ip_pair}: {count}")
-            print ("")
         
         self.report.stream_info(flow_df)
 
@@ -78,6 +75,7 @@ class PcapAnalyzer:
                 'dst_ip': flow.dst_ip,
                 'src_port': flow.src_port,
                 'dst_port': flow.dst_port,
+                'protocol' : flow.protocol,
                 'bidirectional_bytes': flow.bidirectional_bytes,
                 'bidirectional_packets': flow.bidirectional_packets
             }
@@ -93,7 +91,7 @@ class PcapAnalyzer:
         return(counter)
 
     def detect_dos_attack(self, flow,counter):
-        if flow.bidirectional_packets > 20 and flow.bidirectional_duration_ms < 40000:
+        if flow.bidirectional_packets > 50 and flow.bidirectional_duration_ms < 40000:
             message = f"Potential DoS attack detected from {flow.src_ip} with {flow.bidirectional_packets} packets in {flow.bidirectional_duration_ms} ms"
             flow_data=self.get_flow_data(flow)
             self.report.create_alert(flow.id, message,flow_data)
@@ -134,8 +132,8 @@ class PcapAnalyzer:
         dos_counter=0
         l_c_counter=0
         for flow in self.mal_stream:
-            l_f_counter=self.detect_blacklisted_ip(flow,l_f_counter)
             l_c_counter=self.detect_long_connection(flow,l_c_counter)
+            l_f_counter=self.detect_blacklisted_ip(flow,l_f_counter)
             dos_counter=self.detect_dos_attack(flow,dos_counter)
         suspicious_json = self.report.save_suspicious_flows()
         with open("report/suspicious_report.json", "w") as f:

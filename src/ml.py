@@ -54,8 +54,9 @@ class ML:
         X = data.drop('label', axis=1)
         y = data['label']
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-        return (X_train, X_test, y_train, y_test)    
-    
+        return (X_train, X_test, y_train, y_test)
+        
+    #ML1
     def train_and_evaluate_decision_tree(self):
         X_train, X_test, y_train, y_test = self.prepare_data()
         self.tree_model = DecisionTreeClassifier(max_depth=3, criterion='gini', random_state=42)
@@ -65,7 +66,7 @@ class ML:
         self.accuracy = accuracy_score(y_test, predictions)
         self.conf_matrix = confusion_matrix(y_test, predictions)
 
-        dump(self.tree_model, 'decision_tree_model.joblib')
+        dump(self.tree_model, 'resources/decision_tree_model.joblib')
 
         plt.figure(figsize=(20,10))
         plot_tree(self.tree_model, filled=True, feature_names=X_train.columns, class_names=['Normal', 'Malicious'], fontsize=10)
@@ -80,7 +81,7 @@ class ML:
 
 
     def ml_find_suspicious_flow(self,flow):
-        model = load('decision_tree_model.joblib')
+        model = load('resources/decision_tree_model.joblib')
         
         flow_df = pd.DataFrame([self.get_flow_data_for_ml(flow)])
         
@@ -92,17 +93,17 @@ class ML:
         else:
             return False
 
-
+    #ML2
     def test_model_on_new_data(self, new_normal_stream, new_malicious_stream):
         data=self.generate_data(new_normal_stream,new_malicious_stream)
         
         X_new = data.drop('label', axis=1)
         y_new = data['label']
 
-        model = load('decision_tree_model.joblib')
+        model = load('resources/decision_tree_model.joblib')
         predictions = model.predict(X_new)
         accuracy = accuracy_score(y_new, predictions)
-        print(f"Procent poprawnie sklasyfikowanych danych przez model: {accuracy * 100:.2f}%")
+        print(f"Dokladnosc modelu to:  {accuracy}")
         conf_matrix= confusion_matrix(y_new, predictions)
         sns.heatmap(conf_matrix, annot=True, fmt="d")
         plt.title("Macierz błędów")
@@ -133,6 +134,7 @@ class ML:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
         return (X_train, X_test, y_train, y_test)
     
+    # ML3
     def retrain_model(self, new_normal_stream, new_malicious_stream):
 
         X_train, X_test, y_train, y_test = self.prepare_data_for_retrain(new_normal_stream,new_malicious_stream)
@@ -143,7 +145,7 @@ class ML:
         self.accuracy = accuracy_score(y_test, predictions)
         self.conf_matrix = confusion_matrix(y_test, predictions)
 
-        dump(self.tree_model, 'decision_tree_model.joblib')
+        dump(self.tree_model, 'resources/decision_tree_model.joblib')
 
         plt.figure(figsize=(20,10))
         plot_tree(self.tree_model, filled=True, feature_names=X_train.columns, class_names=['Normal', 'Malicious'], fontsize=10)

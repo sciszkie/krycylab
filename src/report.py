@@ -1,5 +1,5 @@
 import json
-from typing import List
+from typing import List,Dict
 from uuid import uuid4
 from .alert import Alert
 from nfstream import NFStreamer
@@ -13,13 +13,15 @@ class Report:
     def __init__(self) -> None:
         self.report_id: str = str(uuid4())
         self.data = []
-        self.generated_alerts: List[Alert] = []
+        self.generated_alerts: Dict[str, List[Alert]] = {}
         self.suspicious_flows=[]
         self.ip_communication_count = {}
 
     def create_alert(self, flow_id ,message,flow_data):
         alert = Alert(flow_id, message)
-        self.generated_alerts.append(alert)
+        if flow_id not in self.generated_alerts:
+            self.generated_alerts[flow_id] = []
+        self.generated_alerts[flow_id].append(alert)
         self.suspicious_flows.append(flow_data)
 
     def stream_info(self, data):
@@ -36,6 +38,7 @@ class Report:
         }
         return json.dumps(report, indent=4)
     
+    #V1
     def plot_threat_distribution(self, large_flow_count, long_connection_count, dos_count):
         labels = ['Black Listed IP', 'Long Connection', 'DoS Attack']
         sizes = [large_flow_count, long_connection_count, dos_count]
@@ -48,7 +51,7 @@ class Report:
         
         plt.figure(figsize=(10, 5))
         plt.pie(filtered_sizes, labels=filtered_labels, autopct='%1.1f%%', startangle=140)
-        plt.title('Distribution of Detected Threats')
+        plt.title('Rozkład znalezionych zagrożeń')
         plt.savefig("report/threat_distribution.png")
         plt.show()
     
@@ -57,7 +60,7 @@ class Report:
         suspicious_report = {
             "report_id": self.report_id,
             "suspicious_flows": self.suspicious_flows,
-            "alerts": [alert.to_dict() for alert in self.generated_alerts]
+            "alerts": {flow_id: [alert.to_dict() for alert in alerts] for flow_id, alerts in self.generated_alerts.items()}
         }
 
         return json.dumps(suspicious_report, indent=4)
